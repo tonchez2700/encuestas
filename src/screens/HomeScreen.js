@@ -1,69 +1,85 @@
-import React from 'react'
-import { StyleSheet, View, ScrollView, Text, ImageBackground, FlatList } from 'react-native';
-import { Icon } from 'react-native-elements'
-import InvitedListItem from '../components/Cards/InvitedListItem';
-import Images from '@assets/images';
+import React, { useState, useEffect, useContext } from 'react'
+import {
+    StyleSheet, View, ScrollView, TouchableOpacity,
+    Text, ActivityIndicator
+} from 'react-native';
+import { Icon, Button } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native';
+import { Context as AccountDataContext } from '../context/AccountDataContext';
 import tw from 'tailwind-react-native-classnames'
-
-
-
+import EntryList from '../components/EntryList';
+import moment from 'moment';
 const HomeScreen = () => {
+
     const navigation = useNavigation();
+    const { state,
+        setDataAccount,
+    } = useContext(AccountDataContext);
+
+    const renderContent = () => {
+
+        return (
+            <View style={{ flex: 1, backgroundColor: '#ECECEC', justifyContent: 'flex-start', padding: 10 }}>
+                <ScrollView>
+                   <View>
+                    <Text>dasdas</Text>
+                   </View>
 
 
+                </ScrollView>
+            </View >
 
+        );
+    }
 
     return (
-        <ImageBackground source={Images.background} resizeMode="cover" style={tw`flex-1 flex-row`}>
-            <ScrollView
-                showsVerticalScrollIndicator={false}>
-                <View style={[tw`flex-row mt-5 justify-between`]}>
-                    <Text style={[tw`text-xl font-bold `, { color: '#23233C' }]} color>Dashboard</Text>
-                    <Icon type='font-awesome' name='user' size={25} color='#002443' style={{ marginRight: 1 }} />
+        !state.fetchingData
+            ?
+            !state.error
+                ?
+                renderContent()
+                :
+                <View style={tw`flex-1 p-5 justify-center items-center`}>
+                    <Text style={tw`text-center text-lg mb-3`}>
+                        {state.message}
+                    </Text>
+                    <Button
+                        containerStyle={{ width: 120 }}
+                        buttonStyle={[{ backgroundColor: '#118ea6' }]}
+                        title="Actualizar"
+                        onPress={() => setDataAccount()}
+                    />
                 </View>
-                <Text style={[tw`text-xl font-bold `, { color: '#23233C' }]} color>----------------------------------------</Text>
-                <FlatList
-                    /* Lista de las invitaciones anteriores como su diseño*/
-                    data={data}
-                    initialNumToRender={3}
-                    maxToRenderPerBatch={15}
-                    updateCellsBatchingPeriod={50}
-                    keyExtractor={item => `${item.id}`}
-                    onEndReachedThreshold={0.5}
-                    onEndReached={() => console.log('load more')}
-                    renderItem={({ item }) => {
-                        return (
-                            <InvitedListItem
-                                key={item.id}
-                                data={item}
-                                onPress={(data) => {
-                                    const currentDate = new Date();
-                                    const timestamp = currentDate.getTime();
-                                }}
-                            />
-                        )
-
-                    }}
-                />
-            </ScrollView >
-        </ImageBackground>
+            :
+            <ActivityIndicator size="large" color="#118EA6" style={tw`mt-5`} />
     )
 }
-const data = [[
-    {
-        id: '1',
-        compania: 'peres',
-        tipo: 'planta',
-        cuenta: 'que cuenta'
-    },
-    {
-        id: '2',
-        compania: 'toto',
-        tipo: 'tata',
-        cuenta: 'tete'
-    },
-]]
 export default HomeScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    iconBtn: {
+        backgroundColor: '#2D5DA0'
+    },
+    TextItems: {
+        width: '50%',
+        color: '#23233C',
+        fontWeight: 'bold'
+    },
+    TextTable: {
+        textAlign: 'center',
+        fontSize: 14,
+        paddingVertical: 10,
+        fontWeight: 'bold',
+        color: 'white',
+    },
+    TextTableItems: {
+        fontSize: 13,
+        padding: 10,
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: '#000000',
+        borderBottomColor: '#E6E6E6',
+        borderBottomWidth: 1
+
+    },
+})

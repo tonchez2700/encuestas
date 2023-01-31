@@ -9,24 +9,33 @@ const MenuFooter = () => {
     const navigation = useNavigation();
 
     return (
-        <View style={tw`flex-row pl-6 pr-6 border-gray-200 border-t bg-white`}>
-            <TouchableOpacity 
-                style={tw`flex-row flex-grow p-4`} 
-                onPress={() => navigation.navigate('locationPermisionScreen')}>
+        <View style={[tw`flex-row pl-6  items-center justify-between`,{width: "100%"}]}>
+            <TouchableOpacity
+                style={tw`flex-row p-2`}
+                onPress={() => navigation.navigate('HomeScreen')}>
                 <Icon
-                    name='camera'
+                    size={30}
+                    name='bars'
                     type='font-awesome'
-                    color='#808080' />
-                <Text style={tw`pl-3`}>Escaner</Text>
+                    color='#002443' />
             </TouchableOpacity>
-            <TouchableOpacity 
-                style={tw`flex-row flex-grow p-4 border-gray-200 border-l`}
-                onPress={() => navigation.navigate('ScheduleListScreen')}>
+            <TouchableOpacity
+                style={tw`flex-row p-2 `}
+                onPress={() => navigation.navigate('HomeScreen')}>
                 <Icon
-                    name='book'
+                    size={35}
+                    name='house'
+                    type='font-awesome-5Free-Regular'
+                    color='#002443' />
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={tw`flex-row p-2 mr-10 `}
+                onPress={() => navigation.navigate('HomeScreen')}>
+                <Icon
+                    size={30}
+                    name='caret-left'
                     type='font-awesome'
-                    color='#808080' />
-                <Text style={tw`pl-3`}>Agenda</Text>
+                    color='#002443' />
             </TouchableOpacity>
         </View>
     )

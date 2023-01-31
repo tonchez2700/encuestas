@@ -1,41 +1,36 @@
 import React, { useContext } from 'react'
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, StatusBar } from 'react-native';
 import { Header, Icon } from 'react-native-elements';
-import { useNavigation } from '@react-navigation/native';
-import { Context as AuthContext} from '../context/AuthContext';
-import Images from '@assets/images';
+import { Context as AuthContext } from '../context/AuthContext';
 import Logo from './Logo';
+import Images from '@assets/images';
 
-const NavBar = () => {
+const NavBar = (navigation) => {
     const { signout } = useContext(AuthContext);
-    const navigation = useNavigation();
+
+    const open = () => {
+        navigation.navigation.openDrawer();
+    }
+
     return (
         <Header
-            backgroundColor="#133C60" 
-            backgroundImage={Images.navBAr_Background}
-            centerComponent={ <Logo size='xs' /> }
+            backgroundColor="#004480"
             barStyle="default"
             leftContainerStyle={{ justifyContent: 'center' }}
             rightContainerStyle={{ justifyContent: 'center' }}
-            leftComponent={
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('PatrolListScreen')}>
-                        <Icon
-                        name='home'
-                        type='font-awesome'
-                        color='white' />
-                </TouchableOpacity> 
-            }
             rightComponent={
                 <TouchableOpacity
-                    onPress={() => signout()}>
-                        <Icon
-                        name='sign-out'
+                    onPress={() => open()}
+                    style={{ position: 'absolute', }}>
+                    <Icon
+                        name='bars'
+                        size={25}
                         type='font-awesome'
                         color='white' />
-                </TouchableOpacity> 
-            }/>
-      
+                </TouchableOpacity>
+            }
+        />
+
     )
 }
 

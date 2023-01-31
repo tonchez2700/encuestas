@@ -22,7 +22,7 @@ const Logo = ({ size, ...otherProps }) => {
     }
     return (
         <View {...otherProps}>
-            <Image source={Images.logo} style={log_style} />
+            <Image source={Images.icon} style={log_style} />
         </View>
     )
 }
@@ -31,12 +31,12 @@ export default Logo
 
 const styles = StyleSheet.create({
     xs: {
-        width: 40,
-        height: 40
+        width:217,
+        height: 50
     },
     sm: {
-        width: 150,
-        height: 53,
+        width: 165,
+        height: 38,
     },
     md: {
         width: 250,
