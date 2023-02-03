@@ -1,32 +1,64 @@
 import React, { useState, useEffect, useContext } from 'react'
 import {
     StyleSheet, View, ScrollView, TouchableOpacity,
-    Text, ActivityIndicator
+    Text, ActivityIndicator, Animated
 } from 'react-native';
-import { Icon, Button } from 'react-native-elements'
+import { general } from '../theme/customTheme';
+import { Icon, Button, Slider } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native';
 import { Context as AccountDataContext } from '../context/AccountDataContext';
+
 import tw from 'tailwind-react-native-classnames'
 import EntryList from '../components/EntryList';
 import moment from 'moment';
+
+
+
 const HomeScreen = () => {
+
 
     const navigation = useNavigation();
     const { state,
         setDataAccount,
     } = useContext(AccountDataContext);
 
+
+    const data = [
+        {
+            name: 'Cuestionario NOM - 035 - STPS  F2018. Guia de referencia III',
+            cantidad: 43,
+            porcentaje: .2
+        },
+        {
+            name: 'Cuestionario para  identificar a los trabajadores sujetos a ATS',
+            cantidad: 32,
+            porcentaje: .4
+        },
+        {
+            name: 'Cuestionario para  identificar a los trabajadores sujetos a ATS',
+            cantidad: 73,
+            porcentaje: .5
+        },
+        {
+            name: 'Cuestionario para  identificar a los trabajadores sujetos a ATS',
+            cantidad: 93,
+            porcentaje: .6
+        },
+        {
+            name: 'Cuestionario para  identificar a los trabajadores sujetos a ATS',
+            cantidad: 73,
+            porcentaje: .9
+        },
+    ]
     const renderContent = () => {
 
         return (
-            <View style={{ flex: 1, backgroundColor: '#ECECEC', justifyContent: 'flex-start', padding: 10 }}>
-                <ScrollView>
-                   <View>
-                    <Text>dasdas</Text>
-                   </View>
-
-
-                </ScrollView>
+            <View style={general.container}>
+                <Text style={general.Tittle}>Encuestas</Text>
+                <View style={{marginVertical: 63}}>
+                    <EntryList
+                        data={data} />
+                </View>
             </View >
 
         );
@@ -56,30 +88,4 @@ const HomeScreen = () => {
 }
 export default HomeScreen
 
-const styles = StyleSheet.create({
-    iconBtn: {
-        backgroundColor: '#2D5DA0'
-    },
-    TextItems: {
-        width: '50%',
-        color: '#23233C',
-        fontWeight: 'bold'
-    },
-    TextTable: {
-        textAlign: 'center',
-        fontSize: 14,
-        paddingVertical: 10,
-        fontWeight: 'bold',
-        color: 'white',
-    },
-    TextTableItems: {
-        fontSize: 13,
-        padding: 10,
-        textAlign: 'center',
-        fontWeight: 'bold',
-        color: '#000000',
-        borderBottomColor: '#E6E6E6',
-        borderBottomWidth: 1
-
-    },
-})
+const styles = StyleSheet.create({})

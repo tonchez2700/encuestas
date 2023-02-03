@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { TouchableOpacity, StatusBar } from 'react-native';
+import { TouchableOpacity, StatusBar, Text } from 'react-native';
 import { Header, Icon } from 'react-native-elements';
 import { Context as AuthContext } from '../context/AuthContext';
 import Logo from './Logo';
@@ -14,14 +14,15 @@ const NavBar = (navigation) => {
 
     return (
         <Header
-            backgroundColor="#004480"
+            backgroundColor="#012B54"
             barStyle="default"
+            containerStyle={{ height: 93 }}
             leftContainerStyle={{ justifyContent: 'center' }}
             rightContainerStyle={{ justifyContent: 'center' }}
             rightComponent={
                 <TouchableOpacity
                     onPress={() => open()}
-                    style={{ position: 'absolute', }}>
+                    style={{ position: 'absolute' }}>
                     <Icon
                         name='bars'
                         size={25}
