@@ -1,27 +1,11 @@
 import { StyleSheet } from 'react-native';
 
-export const colors = {
-    black: '#23233C',
-    blue: '#23233C',
-    info: '#8D8D8D',
-    primary: '#005691',
-    secondary: '#00A558',
-    transparent: 'transparent',
-    white: '#FFFFFF',
 
-    black_opacity: 'rgba(35, 35, 60, 0.5)',
-    secondary_opacity: 'rgba(0, 165, 88, 0.8)',
-    gray_opacity: '#707070',
-    gray_light: '#51515150',
-
-    opacity: 0.7,
-}
 
 export const general = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#ECECEC',
-        justifyContent: 'flex-start',
+        backgroundColor: '#FFFFFF',
         padding: 20
     },
     Tittle: {
@@ -57,35 +41,40 @@ export const general = StyleSheet.create({
     CardQuiz: {
         borderWidth: 1,
         borderColor: '#B7B7B7',
-        paddingHorizontal: 5,
-        height: 63,
+        padding: 5,
         flexDirection: 'row',
         width: '100%'
 
     },
 })
 
-export const private_screens = StyleSheet.create({
-    container_view: {
-        backgroundColor: colors.white,
-        padding: 10,
+export const QuestionStyle = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#FFFFFF',
+        padding: 20
     },
-    image_view: {
-        alignSelf: 'center',
-        width: '70%',
+    CardQuestHelp: {
+        marginTop: 10,
+        borderWidth: 1,
+        borderColor: '#B7B7B7',
+        borderRadius: 5,
+        flexDirection: 'row',
+        backgroundColor: 'white'
     },
-    title_view: {
-        color: colors.black,
-        fontSize: 18,
-        fontWeight: 'bold',
+    ButtonQuestHelp: {
+        backgroundColor: "#012B54",
+        flex: 1,
+        borderBottomRightRadius: 4,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderTopRightRadius: 4
     },
-    subtitle_view: {
-        color: colors.black,
-        fontSize: 14,
-        fontWeight: 'bold',
+    ButtonGruopQuest: {
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: '#B7B7B7',
+        backgroundColor: 'white',
     },
-    text_view: {
-        color: colors.black,
-        fontSize: 14,
-    },
+
 })

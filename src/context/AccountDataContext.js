@@ -9,6 +9,7 @@ import moment from 'moment';
 const initialState = {
     error: false,
     message: null,
+    isVisible: false,
     fetchingData: false,
     payments: [],
     AccountState: '',
@@ -52,6 +53,15 @@ const AccountDataReducer = (state = initialState, action) => {
                 StateAccount: action.payload.response,
                 fetchingData: false
             }
+        case 'CHANGE_VISIBLE_MODAL':
+            let visibleCheck = !state.isVisible
+            return {
+                ...state,
+                error: false,
+                message: '',
+                fetchingData: false,
+                isVisible: visibleCheck
+            }
         default:
             return state
     }
@@ -61,6 +71,15 @@ const AccountDataReducer = (state = initialState, action) => {
 const clearState = (dispatch) => {
     return () => {
         dispatch({ type: 'CLEAR_STATE' });
+    }
+}
+
+const isVisibleModal = (dispatch) => {
+    return async (message) => {
+        dispatch({
+            type: 'CHANGE_VISIBLE_MODAL',
+            payload: { message }
+        })
     }
 }
 
@@ -195,6 +214,7 @@ export const { Context, Provider } = createDataContext(
         setDataPayment,
         setDataState,
         handleInputChange,
+        isVisibleModal
 
     },
     initialState

@@ -7,6 +7,7 @@ import { Provider as AccountDataProvider } from '../context/AccountDataContext';
 import { Context as AuthContext } from '../context/AuthContext';
 
 import HomeScreen from './HomeScreen';
+import QuestionScreen from './QuestionScreen';
 
 import tw from 'tailwind-react-native-classnames';
 import Images from '@assets/images';
@@ -45,7 +46,7 @@ const WrapperInnerScreens = () => {
     }
 
     return (
-        <SafeAreaView style={[tw`flex-1 `, { backgroundColor: '#ECECEC' }]}>
+        <SafeAreaView style={[tw`flex-1 `, { backgroundColor: '#FFFFFF' }]}>
             <AccountDataProvider>
                 <Drawer.Navigator
                     screenOptions={{
@@ -61,6 +62,7 @@ const WrapperInnerScreens = () => {
                     drawerContent={(props) => <CustomDrawerContent {...props} />}
                     useLegacyImplementation>
                     <Drawer.Screen name="Inicio" component={HomeScreen} />
+                    <Drawer.Screen name="QuestionScreen" component={QuestionScreen} />
                 </Drawer.Navigator>
             </AccountDataProvider>
         </SafeAreaView>

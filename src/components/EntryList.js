@@ -15,32 +15,37 @@ const EntryList = ({ data }) => {
         <View>
             {
                 data.map((e) =>
-                    <View key={e.NumRecibo} style={[tw`flex-row`, { backgroundColor: 'white', marginBottom: 24, }]}>
+                    <View key={e.id} style={[tw`flex-row`, { backgroundColor: 'white', marginBottom: 24, }]}>
                         <View style={general.CardQuiz}>
                             <View style={{ width: '60%', justifyContent: 'center' }}>
                                 <Text style={general.textCardQuiz}>
                                     {e.name}
                                 </Text>
-                                <View style={{marginVertical: 7}}>
+                                <View style={{ marginVertical: 7 }}>
                                     <Progress.Bar
                                         progress={e.porcentaje}
                                         pointerEvents={'auto'}
                                         color={'#012B54'}
-                                        height={10} width={200}
+                                        height={10} width={180}
                                     />
                                 </View>
                             </View>
                             <View style={{ width: '25%', justifyContent: 'center' }}>
                                 <Text style={general.textCountCuestions}>{e.cantidad} Preguntas</Text>
                             </View>
-                            <View style={{ width: '15%', justifyContent: 'center' }}>
-                                <Icon
-                                    size={20}
-                                    name='pencil'
-                                    containerStyle={general.CardIconQuiz}
-                                    type='font-awesome'
-                                    color={"white"} />
-                            </View>
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('QuestionScreen')}
+                                style={{ justifyContent: 'center', marginLeft: 5 }}
+                            >
+                                <View style={{ width: '15%' }}>
+                                    <Icon
+                                        size={20}
+                                        name='pencil'
+                                        containerStyle={general.CardIconQuiz}
+                                        type='font-awesome'
+                                        color={"white"} />
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 )
