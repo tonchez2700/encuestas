@@ -11,10 +11,8 @@ const initialState = {
     message: null,
     isVisible: false,
     fetchingData: false,
-    payments: [],
-    AccountState: '',
-    StateAccount: '',
-    data: '',
+    questionnaire: [],
+    sections: [],
 
 }
 
@@ -34,23 +32,23 @@ const AccountDataReducer = (state = initialState, action) => {
                 message: action.payload.message,
                 fetchingData: false
             }
-        case 'SET_REQUEST_DATA':
-            return {
-                ...state,
-                data: action.payload.response[0],
-                AccountState: action.payload.AccountStatement[0],
-                fetchingData: false
-            }
         case 'SET_REQUEST_PAYMENTS':
             return {
                 ...state,
                 payments: action.payload.response,
                 fetchingData: false
             }
-        case 'SET_REQUEST_STATE':
+        case 'SET_QUESTIONARY_USER':
             return {
                 ...state,
-                StateAccount: action.payload.response,
+                questionnaire: action.payload.response,
+                sections: action.payload.response.sections,
+                fetchingData: false
+            }
+        case 'SET_SECTIONS_USER':
+            return {
+                ...state,
+                sections: action.payload.response.sections,
                 fetchingData: false
             }
         case 'CHANGE_VISIBLE_MODAL':
@@ -83,67 +81,19 @@ const isVisibleModal = (dispatch) => {
     }
 }
 
-const setDataAccount = (dispatch) => {
+const getUserQuestionnaires = (dispatch) => {
     return async () => {
         try {
             const user = JSON.parse(await AsyncStorage.getItem('user'));
-            const data = {
-                Modulo: user.modulo,
-                Cuenta: user.cuenta,
-            }
             const token = user.token;
-            const response = await httpClient.post(
-                'ws_entidad_credisuenos_datos_personales.php',
-                data,
-                {
-                    'Authorization': `Bearer ${token}`,
-                }
-            );
-            const AccountStatement = await httpClient.post(
-                'ws_entidad_credisuenos_recibo.php',
-                data,
+            const id = user.userData.id;
+            const response = await httpClient.get(`users/${id}/questionnaires`,
                 {
                     'Authorization': `Bearer ${token}`,
                 }
             );
             dispatch({
-                type: 'SET_REQUEST_DATA',
-                payload: {
-                    response, AccountStatement
-                }
-            })
-        } catch (error) {
-            dispatch({
-                type: 'SET_REQUEST_ERROR',
-                payload: {
-                    error: true,
-                    message: 'Por el momento el servicio no está disponible, inténtelo mas tarde.'
-                }
-            })
-        }
-    }
-}
-
-const setDataPayment = (dispatch) => {
-    return async () => {
-        try {
-            dispatch({ type: 'FETCHING_DATA', payload: { fetchingData: true } });
-            const user = JSON.parse(await AsyncStorage.getItem('user'));
-            const data = {
-                Modulo: user.modulo,
-                Cuenta: user.cuenta,
-                Cantidad: 3
-            }
-            const token = user.token;
-            const response = await httpClient.post(
-                'ws_entidad_credisuenos_pagos.php',
-                data,
-                {
-                    'Authorization': `Bearer ${token}`,
-                }
-            );
-            dispatch({
-                type: 'SET_REQUEST_PAYMENTS',
+                type: 'SET_QUESTIONARY_USER',
                 payload: {
                     response
                 }
@@ -153,67 +103,33 @@ const setDataPayment = (dispatch) => {
                 type: 'SET_REQUEST_ERROR',
                 payload: {
                     error: true,
-                    message: 'Por el momento el servicio no está disponible, inténtelo mas tarde.'
+                    message: 'Por el momento el getUserQuestionnaires no está disponible, inténtelo mas tarde.'
                 }
             })
         }
     }
 }
 
-
-const setDataState = (dispatch) => {
+const getUsersections = (dispatch) => {
     return async () => {
-        try {
-            const user = JSON.parse(await AsyncStorage.getItem('user'));
-            const data = {
-                Modulo: user.modulo,
-                Cuenta: user.cuenta
-            }
-            const token = user.token;
-            const response = await httpClient.post(
-                'ws_entidad_credisuenos_estado_cuenta.php',
-                data,
-                {
-                    'Authorization': `Bearer ${token}`,
-                }
-            );
-            dispatch({
-                type: 'SET_REQUEST_STATE',
-                payload: {
-                    response
-                }
-            })
-        } catch (error) {
-            dispatch({
-                type: 'SET_REQUEST_ERROR',
-                payload: {
-                    error: true,
-                    message: 'Por el momento el servicio no está disponible, inténtelo mas tarde.'
-                }
-            })
-        }
-    }
-}
-
-
-const handleInputChange = (dispatch) => {
-    return async (value, typedata) => {
         dispatch({
-            type: 'SET_ORDER_NUMBER',
-            payload: { value, typedata }
+            type: 'SET_QUESTIONARY_USER',
+            payload: {
+                response
+            }
         })
     }
 }
+
+
 
 
 export const { Context, Provider } = createDataContext(
     AccountDataReducer,
     {
         clearState,
-        setDataAccount,
-        setDataPayment,
-        setDataState,
-        handleInputChange,
+        getUserQuestionnaires,
+        getUsersections,
         isVisibleModal
 
     },

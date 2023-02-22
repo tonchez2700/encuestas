@@ -1,1 +1,1 @@
-export const apiUrlBase = 'https://cpxproject.com/sistemas/encuestas/api'
+export const apiUrlBase = 'http://encuestas2023.cpxproject.com/api'

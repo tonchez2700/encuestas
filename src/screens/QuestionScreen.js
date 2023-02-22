@@ -6,47 +6,52 @@ import {
 import { QuestionStyle } from '../theme/customTheme';
 import { Icon, Button, ButtonGroup, LinearProgress } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native';
-import { Context as AccountDataContext } from '../context/AccountDataContext';
 import ModalAlert from '../components/Modal/ModalAlert';
 import tw from 'tailwind-react-native-classnames'
+import ButtonGroupFrom from '../components/Forms/ButtonGroupFrom';
 import * as Progress from 'react-native-progress';
 import moment from 'moment';
 
+import { Context as AccountDataContext } from '../context/AccountDataContext';
+
 const windowWidth = Dimensions.get('window').width;
 
-const QuestionScreen = () => {
+const QuestionScreen = ({ route }) => {
 
 
     const navigation = useNavigation();
-    const { state: dataState,
-        setDataAccount,
-        isVisibleModal
+    const {
+        state,
+        getUsersections
     } = useContext(AccountDataContext);
+    const { id, name, description, percentage_completed, total_questions, sections } = route.params
 
     const [index, setindex] = useState()
 
+    console.log(JSON.stringify(sections, null, 2));
+    useEffect(() => {
+        getUsersections();
+    }, [])
+
+    const buttons = ['INSERT', 'UPDATE', 'DELETE']
 
     const renderContent = () => {
 
         return (
-
-
             <View style={QuestionStyle.container}>
                 <ScrollView>
-                    <Text style={{ fontSize: 18, fontWeight: '700', color: '#6C6767' }}>Pregunta 1 de 45</Text>
+                    <Text style={{ fontSize: 18, fontWeight: '700', color: '#6C6767' }}>Pregunta 1 de {total_questions}</Text>
                     <View style={{ marginVertical: 20 }}>
                         <LinearProgress
-                            value={50 / 100}
+                            value={percentage_completed / 100}
                             variant="determinate"
                             style={{ height: 10 }}
                             color="#012B54"
                         />
                         <View style={QuestionStyle.CardQuestHelp}>
                             <View style={{ width: '80%', flex: 1, padding: 10 }}>
-                                <Text style={{ fontSize: 18, fontWeight: '700', color: '#6C6767' }}>Preguta 1</Text>
-                                <Text style={{ fontSize: 14.5, fontWeight: '400' }}>
-                                    El espacio donde trabaja me permite realizar
-                                    mis actividades de manera segura e higienica</Text>
+                                <Text style={{ fontSize: 18, fontWeight: '700', color: '#6C6767' }}>{name}</Text>
+                                <Text style={{ fontSize: 14.5, fontWeight: '400' }}>{description}</Text>
                             </View>
                             <View style={{ width: '20%', borderColor: '#B7B7B7', }}>
                                 <TouchableOpacity onPress={() => isVisibleModal()} style={QuestionStyle.ButtonQuestHelp}>
@@ -61,7 +66,7 @@ const QuestionScreen = () => {
                         <View>
 
                             <ButtonGroup
-                                buttons={['Multiple', 'Select', 'Button', 'Group']}
+                                buttons={buttons}
                                 vertical={true}
                                 onPress={(value) => setindex(value)}
                                 selectedIndex={index}
@@ -72,6 +77,10 @@ const QuestionScreen = () => {
                                 buttonContainerStyle={{ marginBottom: 20, height: 70, }}
                                 buttonStyle={QuestionStyle.ButtonGruopQuest}
                             />
+                            <ButtonGroupFrom
+                            data={sections[0].questions[0].options}
+                            />
+
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                             <Button
@@ -98,15 +107,15 @@ const QuestionScreen = () => {
     }
 
     return (
-        !dataState.fetchingData
+        !state.fetchingData
             ?
-            !dataState.error
+            !state.error
                 ?
                 renderContent()
                 :
                 <View style={tw`flex-1 p-5 justify-center items-center`}>
                     <Text style={tw`text-center text-lg mb-3`}>
-                        {dataState.message}
+                        {state.message}
                     </Text>
                     <Button
                         containerStyle={{ width: 120 }}

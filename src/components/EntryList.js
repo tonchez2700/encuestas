@@ -23,7 +23,7 @@ const EntryList = ({ data }) => {
                                 </Text>
                                 <View style={{ marginVertical: 7 }}>
                                     <Progress.Bar
-                                        progress={e.porcentaje}
+                                        progress={e.percentage_completed}
                                         pointerEvents={'auto'}
                                         color={'#012B54'}
                                         height={10} width={180}
@@ -31,10 +31,10 @@ const EntryList = ({ data }) => {
                                 </View>
                             </View>
                             <View style={{ width: '25%', justifyContent: 'center' }}>
-                                <Text style={general.textCountCuestions}>{e.cantidad} Preguntas</Text>
+                                <Text style={general.textCountCuestions}>{e.total_questions} Preguntas</Text>
                             </View>
                             <TouchableOpacity
-                                onPress={() => navigation.navigate('QuestionScreen')}
+                                onPress={() => navigation.navigate('QuestionScreen', e)}
                                 style={{ justifyContent: 'center', marginLeft: 5 }}
                             >
                                 <View style={{ width: '15%' }}>
