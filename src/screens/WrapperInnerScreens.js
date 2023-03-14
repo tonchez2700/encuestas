@@ -7,6 +7,7 @@ import { Provider as AccountDataProvider } from '../context/AccountDataContext';
 import { Context as AuthContext } from '../context/AuthContext';
 
 import HomeScreen from './HomeScreen';
+import AdminHomeScreen from './AdminHomeScreen';
 import QuestionScreen from './QuestionScreen';
 
 import tw from 'tailwind-react-native-classnames';
@@ -19,7 +20,7 @@ const Drawer = createDrawerNavigator();
 
 const WrapperInnerScreens = () => {
 
-    const { signout } = useContext(AuthContext);
+    const { state, signout } = useContext(AuthContext);
     const CustomDrawerContent = (props) => {
         return (
             <View style={[tw`flex-1`, { backgroundColor: '#ECECEC' }]}>
@@ -60,8 +61,10 @@ const WrapperInnerScreens = () => {
                         )
                     }}
                     drawerContent={(props) => <CustomDrawerContent {...props} />}
+                    initialRouteName={`${state.route}`}
                     useLegacyImplementation>
                     <Drawer.Screen name="Inicio" component={HomeScreen} />
+                    <Drawer.Screen name="InicioAdmin" component={AdminHomeScreen} />
                     <Drawer.Screen name="QuestionScreen" component={QuestionScreen} />
                 </Drawer.Navigator>
             </AccountDataProvider>

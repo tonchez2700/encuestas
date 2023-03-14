@@ -24,8 +24,12 @@ const HomeScreen = () => {
 
 
     useEffect(() => {
-        getUserQuestionnaires();
-    }, [])
+        const unsubscribe = navigation.addListener('focus', () => {
+            getUserQuestionnaires();
+        });
+        return unsubscribe;
+    }, [navigation]);
+
 
     const renderContent = () => {
 
@@ -33,8 +37,15 @@ const HomeScreen = () => {
             <View style={general.container}>
                 <Text style={general.Tittle}>Encuestas</Text>
                 <View style={{ marginVertical: 63 }}>
-                    <EntryList
-                        data={state.questionnaire} />
+                    {
+                        state.questionnaire.message == "Unauthenticated." || state.questionnaire == ''
+                            ?
+                            <Text>No hay encuestas</Text>
+                            :
+                            <EntryList
+                                data={state.questionnaire}
+                            />
+                    }
                 </View>
             </View >
 

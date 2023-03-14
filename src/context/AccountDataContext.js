@@ -11,8 +11,13 @@ const initialState = {
     message: null,
     isVisible: false,
     fetchingData: false,
+    indexSection: 0,
+    indexQuestion: 0,
     questionnaire: [],
     sections: [],
+    answerQuiz: '',
+    questionSection: '',
+    questions: '',
 
 }
 
@@ -42,13 +47,24 @@ const AccountDataReducer = (state = initialState, action) => {
             return {
                 ...state,
                 questionnaire: action.payload.response,
-                sections: action.payload.response.sections,
                 fetchingData: false
             }
         case 'SET_SECTIONS_USER':
             return {
                 ...state,
-                sections: action.payload.response.sections,
+                questionSection: action.payload.data,
+                fetchingData: false
+            }
+        case 'SET_ANSWER':
+            let typeValue = action.payload.type
+            return {
+                ...state,
+                [typeValue]: action.payload.value
+            }
+        case 'SET_QUESTION_USER':
+            return {
+                ...state,
+                questions: action.payload.data,
                 fetchingData: false
             }
         case 'CHANGE_VISIBLE_MODAL':
@@ -92,6 +108,7 @@ const getUserQuestionnaires = (dispatch) => {
                     'Authorization': `Bearer ${token}`,
                 }
             );
+
             dispatch({
                 type: 'SET_QUESTIONARY_USER',
                 payload: {
@@ -110,27 +127,59 @@ const getUserQuestionnaires = (dispatch) => {
     }
 }
 
-const getUsersections = (dispatch) => {
-    return async () => {
+const handleInputChange = (dispatch) => {
+    return async (value, type) => {
         dispatch({
-            type: 'SET_QUESTIONARY_USER',
+            type: 'SET_ANSWER',
             payload: {
-                response
+                type, value
             }
         })
     }
 }
 
 
+const store = (dispatch) => {
+    return async (questionnaire_id, question_id, option_id) => {
+        try {
+            const user = JSON.parse(await AsyncStorage.getItem('user'));
+            const token = user.token;
+            const id = user.userData.id;
+
+            const data = {
+                questionnaire_id: questionnaire_id,
+                question_id: question_id,
+                option_id: option_id
+            }
+
+            const response = await httpClient.post(`users/${id}/answers`, data,
+                {
+                    'Authorization': `Bearer ${token}`,
+                }
+            );
+            console.log(response);
+
+        } catch (error) {
+            dispatch({
+                type: 'SET_REQUEST_ERROR',
+                payload: {
+                    error: true,
+                    message: 'Por el momento el getUserQuestionnaires no está disponible, inténtelo mas tarde.'
+                }
+            })
+        }
+    }
+}
 
 
 export const { Context, Provider } = createDataContext(
     AccountDataReducer,
     {
         clearState,
+        isVisibleModal,
         getUserQuestionnaires,
-        getUsersections,
-        isVisibleModal
+        handleInputChange,
+        store
 
     },
     initialState

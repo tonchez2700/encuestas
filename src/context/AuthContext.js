@@ -11,6 +11,7 @@ const initialState = {
     message: null,
     fetchingData: false,
     user: null,
+    route: ''
 }
 
 const loginReducer = (state = initialState, action) => {
@@ -26,12 +27,19 @@ const loginReducer = (state = initialState, action) => {
                 fetchingData: action.payload.fetchingData
             }
         case 'SIGNIN':
+            let routeNavigation
+            if (action.payload.user.id != 2) {
+                routeNavigation = 'Inicio'
+            } else {
+                routeNavigation = 'AdminHomeScreen'
+            }
             return {
                 ...state,
                 error: false,
                 message: null,
                 fetchingData: false,
-                user: action.payload.user
+                user: action.payload.user,
+                route: routeNavigation
             }
         case 'SIGNOUT':
             return { ...state, user: null, message: null }

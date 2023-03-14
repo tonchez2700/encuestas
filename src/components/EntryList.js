@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native'
 import tw from 'tailwind-react-native-classnames'
 import { general } from '../theme/customTheme';
-import { Icon } from 'react-native-elements'
+import { Icon, LinearProgress } from 'react-native-elements'
 import * as Progress from 'react-native-progress';
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
@@ -12,7 +12,7 @@ const EntryList = ({ data }) => {
     const navigation = useNavigation();
     return (
 
-        <View>
+        <ScrollView>
             {
                 data.map((e) =>
                     <View key={e.id} style={[tw`flex-row`, { backgroundColor: 'white', marginBottom: 24, }]}>
@@ -22,11 +22,12 @@ const EntryList = ({ data }) => {
                                     {e.name}
                                 </Text>
                                 <View style={{ marginVertical: 7 }}>
-                                    <Progress.Bar
-                                        progress={e.percentage_completed}
-                                        pointerEvents={'auto'}
-                                        color={'#012B54'}
-                                        height={10} width={180}
+
+                                    <LinearProgress
+                                        value={e.percentage_completed / 100}
+                                        variant="determinate"
+                                        style={{ height: 10, marginVertical: 10 }}
+                                        color="#012B54"
                                     />
                                 </View>
                             </View>
@@ -50,7 +51,7 @@ const EntryList = ({ data }) => {
                     </View>
                 )
             }
-        </View>
+        </ScrollView>
     )
 }
 
