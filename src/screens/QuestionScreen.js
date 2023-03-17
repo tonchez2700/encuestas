@@ -27,12 +27,12 @@ const QuestionScreen = ({ route }) => {
         isVisibleModal,
         store
     } = useContext(AccountDataContext);
-    const { id, name, description, percentage_completed, total_questions, sections } = route.params
+    const { id, name, description, percentage_completed, total_questions, questionnaire } = route.params
 
 
     const [seccionIndex, setSeccionIndex] = useState(0);
     const [preguntaIndex, setPreguntaIndex] = useState(0);
-    const secciones = sections[seccionIndex]
+    const secciones = questionnaire.sections[seccionIndex]
     const preguntas = secciones.questions[preguntaIndex];
 
 
@@ -43,10 +43,9 @@ const QuestionScreen = ({ route }) => {
     }
     const handleSiguientePregunta = () => {
         if (preguntaIndex + 1 < secciones.questions.length) {
-            console.log(id, preguntas.id, state.answerQuiz);
             setPreguntaIndex(preguntaIndex + 1);
             store(id, preguntas.id, state.answerQuiz)
-        } else if (seccionIndex + 1 < sections.length) {
+        } else if (seccionIndex + 1 < questionnaire.sections.length) {
             store(id, preguntas.id, state.answerQuiz)
             setSeccionIndex(seccionIndex + 1);
             setPreguntaIndex(0);

@@ -22,11 +22,10 @@ const EntryList = ({ data }) => {
                                     {e.name}
                                 </Text>
                                 <View style={{ marginVertical: 7 }}>
-
                                     <LinearProgress
                                         value={e.percentage_completed / 100}
                                         variant="determinate"
-                                        style={{ height: 10, marginVertical: 10 }}
+                                        style={{ height: 10, marginVertical: 4, width: '80%' }}
                                         color="#012B54"
                                     />
                                 </View>

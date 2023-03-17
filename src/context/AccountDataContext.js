@@ -103,7 +103,7 @@ const getUserQuestionnaires = (dispatch) => {
             const user = JSON.parse(await AsyncStorage.getItem('user'));
             const token = user.token;
             const id = user.userData.id;
-            const response = await httpClient.get(`users/${id}/questionnaires`,
+            const response = await httpClient.get(`users/${id}/applications`,
                 {
                     'Authorization': `Bearer ${token}`,
                 }
@@ -147,19 +147,20 @@ const store = (dispatch) => {
             const id = user.userData.id;
 
             const data = {
-                questionnaire_id: questionnaire_id,
+                application_id: questionnaire_id,
                 question_id: question_id,
                 option_id: option_id
             }
 
-            const response = await httpClient.post(`users/${id}/answers`, data,
+            const response = await httpClient.post(`users/6/answers`, data,
                 {
                     'Authorization': `Bearer ${token}`,
                 }
             );
-            console.log(response);
+            console.log(JSON.stringify(response, null, 2));
 
         } catch (error) {
+            console.log(JSON.stringify(error, null, 2));
             dispatch({
                 type: 'SET_REQUEST_ERROR',
                 payload: {
