@@ -7,20 +7,18 @@ import { Icon, Button } from 'react-native-elements'
 
 
 const { width } = Dimensions.get("window");
-const ModalAlert = () => {
+const ModalAlert = ({ messages }) => {
 
     const navigation = useNavigation();
 
     const { state,
         clearState,
-        setDataAccount,
         isVisibleModal,
     } = useContext(AccountDataContext);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             clearState()
-
         });
         return unsubscribe;
     }, [navigation]);
@@ -38,8 +36,8 @@ const ModalAlert = () => {
                 }>
                 <View style={styles.viewWrapper}>
                     <View style={styles.modalView}>
-                        <Text style={styles.text}>Lorem Ipsum</Text>
-                        <Text style={styles.textbody}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
+                        <Text style={styles.text}>{messages.name}</Text>
+                        <Text style={styles.textbody}>{messages.description}.</Text>
                         <View >
                             <Button
                                 onPress={() => {
@@ -66,13 +64,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontWeight: '700',
         textAlign: 'left',
-        fontSize: 19.36,
+        fontSize: 20,
     },
     textbody: {
         color: 'black',
         textAlign: 'left',
         fontWeight: '400',
-        fontSize: 14.52,
+        fontSize: 16,
     },
     body: {
         flex: 1,

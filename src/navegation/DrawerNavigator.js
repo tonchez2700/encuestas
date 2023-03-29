@@ -5,21 +5,21 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Context as AuthContext } from './../context/AuthContext';
 import tw from 'tailwind-react-native-classnames';
 import HomeScreen from './../screens/HomeScreen'
+//import QuestionAdminScreen from '../screens/QuestionAdminScreen';
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
   const { signout } = useContext(AuthContext);
-
   const HomeScreen = ({ navigation }) => {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Button
+        <Button 
           onPress={() => navigation.navigate('Notifications')}
           title="Go to notifications"
         />
       </View>
-    );
+    );    
   }
 
   return (
@@ -27,9 +27,10 @@ const DrawerNavigator = () => {
       <NavigationContainer>
         <Drawer.Navigator initialRouteName="Home">
           <Drawer.Screen name="Home" component={HomeScreen} />
+          {/* <Drawer.Screen name="Admin" component={QuestionAdminScreen} /> */}
         </Drawer.Navigator>
       </NavigationContainer>
-    </SafeAreaView>
+    </SafeAreaView> 
   )
 }
 

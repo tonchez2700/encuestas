@@ -1,5 +1,4 @@
 
-
 import createDataContext from './createDataContext'
 import httpClient from '../services/httpClient'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -11,6 +10,7 @@ const initialState = {
     message: null,
     fetchingData: false,
     user: null,
+    route: ''
 }
 
 const loginReducer = (state = initialState, action) => {
@@ -26,12 +26,20 @@ const loginReducer = (state = initialState, action) => {
                 fetchingData: action.payload.fetchingData
             }
         case 'SIGNIN':
+            console.log("pato", action.payload.user.userData.role_id);
+            let routeNavigation
+            if (action.payload.user.userData.role_id == 3 ) {
+                routeNavigation = 'Inicio'
+            } else if (action.payload.user.userData.role_id == 1 || action.payload.user.userData.role_id == 2) {
+                routeNavigation = 'Admin'
+            }
             return {
                 ...state,
                 error: false,
                 message: null,
                 fetchingData: false,
-                user: action.payload.user
+                user: action.payload.user,
+                route: routeNavigation
             }
         case 'SIGNOUT':
             return { ...state, user: null, message: null }

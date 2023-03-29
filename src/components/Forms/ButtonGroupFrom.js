@@ -7,25 +7,53 @@ import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 
 
-const ButtonGroupFrom = ({ data }) => {
-    console.log(data);
+const ButtonGroupFrom = ({ data, fun }) => {
+    const [selectedButton, setSelectedButton] = useState(null);
 
     return (
-        <View>
+        <View style={{ marginVertical: 35 }}>
             {
-                data.map((e) =>
-                    <View key={e.id}>
-                        <TouchableOpacity
-                            onPress={() => console.log(e.id)}
-                            style={{ width: '100%', alignItems: 'center', padding: 20, marginBottom: 10, borderWidth: 1, borderColor: 'gray' }}>
-
-                            <Text>{e.description}</Text>
-                        </TouchableOpacity>
-                    </View>
-                )
-            }
+                data.map((e) => (
+                    <TouchableOpacity
+                        key={e.id}
+                        style={[styles.button, selectedButton === e.id && styles.selectedButton]}
+                        onPress={() => { fun(e.id), setSelectedButton(e.id) }}
+                    >
+                        <Text style={[styles.buttonText, selectedButton === e.id && styles.selectedText]}>{e.description}</Text>
+                    </TouchableOpacity>
+                ))}
         </View>
     )
 }
 
 export default ButtonGroupFrom
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+    },
+    button: {
+        width: '100%',
+        alignItems: 'center',
+        padding: 20,
+        marginBottom: 20,
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: '#B7B7B7',
+        backgroundColor: 'white',
+    },
+    selectedButton: {
+        backgroundColor: '#012B54',
+    },
+    selectedText: {
+        color: 'white',
+    },
+    buttonText: {
+        fontSize: 20,
+        fontWeight: '400'
+    },
+});

@@ -2,24 +2,26 @@ import React, { useContext } from 'react'
 import { SafeAreaView, View, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-native'
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem, } from '@react-navigation/drawer';
 import { navigationRef } from '../helpers/rootNavigation';
-
 import { Provider as AccountDataProvider } from '../context/AccountDataContext';
 import { Context as AuthContext } from '../context/AuthContext';
-
 import HomeScreen from './HomeScreen';
 import QuestionScreen from './QuestionScreen';
-
 import tw from 'tailwind-react-native-classnames';
 import Images from '@assets/images';
 import NavBar from '../components/NavBar'
 import SimpleNavBar from '../components/SimpleNavBar'
+import QuestionAdminScreen from './QuestionAdminScreen';
+import { useNavigation } from '@react-navigation/native';
+import EmployedInfoScreen from './EmployedInfoScreen';
 
 
 const Drawer = createDrawerNavigator();
 
 const WrapperInnerScreens = () => {
+const navigation = useNavigation();
 
-    const { signout } = useContext(AuthContext);
+    const { state, signout } = useContext(AuthContext);
+    
     const CustomDrawerContent = (props) => {
         return (
             <View style={[tw`flex-1`, { backgroundColor: '#ECECEC' }]}>
@@ -37,10 +39,12 @@ const WrapperInnerScreens = () => {
                             signout()
                             props.navigation.closeDrawer()
                         }}
+                    />             
+                    <DrawerItem
+                        label="AdminPrueba"
+                        onPress={() => navigation.navigate('Admin')}
                     />
-
                 </DrawerContentScrollView>
-
             </View>
         )
     }
@@ -60,9 +64,12 @@ const WrapperInnerScreens = () => {
                         )
                     }}
                     drawerContent={(props) => <CustomDrawerContent {...props} />}
+                    initialRouteName={`${state.intialScreen}`}
                     useLegacyImplementation>
                     <Drawer.Screen name="Inicio" component={HomeScreen} />
                     <Drawer.Screen name="QuestionScreen" component={QuestionScreen} />
+                    <Drawer.Screen name="Admin" component={QuestionAdminScreen}/>
+                    <Drawer.Screen name='InFoEmployed' component={EmployedInfoScreen}/>
                 </Drawer.Navigator>
             </AccountDataProvider>
         </SafeAreaView>

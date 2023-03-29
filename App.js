@@ -7,6 +7,7 @@ import { navigationRef } from './src/helpers/rootNavigation'
 import AuthScreen from './src/screens/AuthScreen';
 import LoadingScreen from './src/screens/LoadingScreen';
 import WrapperInnerScreens from './src/screens/WrapperInnerScreens';
+import QuestionAdminScreen from './src/screens/QuestionAdminScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ export default function App() {
               <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
               <Stack.Screen name="WrapperInnerScreens" component={WrapperInnerScreens} />
               <Stack.Screen name="AuthScreen" component={AuthScreen} />
+              
           </Stack.Navigator>
       </AuthProvider>
     </NavigationContainer>

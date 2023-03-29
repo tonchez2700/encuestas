@@ -8,7 +8,6 @@ const LoadingScreen = () => {
     useEffect(() => {
         tryLocalSignin();
     }, [])
-
     return null
 }
 

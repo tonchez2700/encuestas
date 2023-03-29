@@ -1,7 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-
-
 export const general = StyleSheet.create({
     container: {
         flex: 1,
@@ -9,7 +7,7 @@ export const general = StyleSheet.create({
         padding: 20
     },
     Tittle: {
-        marginTop: 43,
+        marginTop: 30,
         fontSize: 29,
         color: '#6C6767',
         textAlign: 'center',
@@ -52,7 +50,11 @@ export const QuestionStyle = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FFFFFF',
-        padding: 20
+        padding: 15,
+        
+        //justifyContent: "center",
+        alignItems: "center",
+        //alignContent: "center"
     },
     CardQuestHelp: {
         marginTop: 10,

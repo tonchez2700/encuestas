@@ -11,44 +11,57 @@ import { Context as AccountDataContext } from '../context/AccountDataContext';
 import tw from 'tailwind-react-native-classnames'
 import EntryList from '../components/EntryList';
 import moment from 'moment';
-
-
+import NoQuestion from '../components/NoQuestion';
 
 const HomeScreen = () => {
 
-
     const navigation = useNavigation();
-    const { state,
-        getUserQuestionnaires
-    } = useContext(AccountDataContext);
-
+    const { state, getUserQuestionnaires, isVisibleModalAnswere} = useContext(AccountDataContext);
+    const [loading, setLoading] = useState(true);
+    const [showNoQuestion, setShowNoQuestion] = useState(false);
 
     useEffect(() => {
-        getUserQuestionnaires();
-    }, [])
+        const unsubscribe = navigation.addListener('focus', () => {
+            getUserQuestionnaires();
+            setLoading(true);
+            setShowNoQuestion(false);
+        });
+        return unsubscribe;
+    }, [navigation]);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setLoading(false);
+            if (state.questionnaire.message == "Unauthenticated.") {
+                setShowNoQuestion(true);
+            }
+        }, 1000);
+        return () => clearTimeout(timeout);
+    }, [state.questionnaire]);
 
     const renderContent = () => {
-
         return (
             <View style={general.container}>
                 <Text style={general.Tittle}>Encuestas</Text>
-                <View style={{ marginVertical: 63 }}>
-                    <EntryList
-                        data={state.questionnaire} />
+                <View style={{ marginVertical: 45 }}>
+                    {loading ? (
+                        <ActivityIndicator size="large" color="#012B54" style={tw`mt-5`} />
+                        
+                    ) : (
+                        showNoQuestion
+                        ? <NoQuestion />
+                        : <EntryList data={state.questionnaire} />
+                    )}
                 </View>
-            </View >
-
+            </View>
         );
     }
 
     return (
         !state.fetchingData
-            ?
-            !state.error
-                ?
-                renderContent()
-                :
-                <View style={tw`flex-1 p-5 justify-center items-center`}>
+            ? !state.error
+                ? renderContent()
+                : <View style={tw`flex-1 p-5 justify-center items-center`}>
                     <Text style={tw`text-center text-lg mb-3`}>
                         {state.message}
                     </Text>
@@ -59,10 +72,8 @@ const HomeScreen = () => {
                         onPress={() => setDataAccount()}
                     />
                 </View>
-            :
-            <ActivityIndicator size="large" color="#118EA6" style={tw`mt-5`} />
+            : <ActivityIndicator size="large" color="#118EA6" style={tw`mt-5`} />
     )
 }
-export default HomeScreen
 
-const styles = StyleSheet.create({})
+export default HomeScreen;
