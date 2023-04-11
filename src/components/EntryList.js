@@ -71,13 +71,14 @@ const EntryList = ({ data }) => {
             <TouchableOpacity
               onPress={() => {
                  navigation.navigate('QuestionScreen', e)
-                // if (e.percentage_completed >= 80) {
+                //  if (e.percentage_completed >= 80) {
                 //   isVisibleModalAnswere();
-                // } else {
-                //   // console.log();
-                //   navigation.navigate("QuestionScreen", e);
+                //  } else {
+                //    // console.log();
+                //    navigation.navigate("QuestionScreen", e);
                 // }
               }}
+              
               // onPress={() => navigation.navigate('QuestionScreen', e)}
               style={{ justifyContent: "center", marginLeft: 5 }}
             >

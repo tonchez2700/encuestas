@@ -54,10 +54,8 @@ const QuestionScreen = ({ route }) => {
         }
         setCount(count + 1); 
     };
-
+    
     const renderContent = () => {
-     
-
         return (
             <View style={QuestionStyle.container}>
                 <ScrollView>

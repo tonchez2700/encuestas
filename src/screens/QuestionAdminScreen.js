@@ -42,10 +42,6 @@ const QuestionAdminScreen = () => {
           <SearchButton />
         </View>
 
-        {/* <Text style={styles.questiontext}>
-            // Empleados
-          </Text> */}
-
         <ScrollView>
           {state.userData && <EmploymentCard employee={state.userData} />}
         </ScrollView>

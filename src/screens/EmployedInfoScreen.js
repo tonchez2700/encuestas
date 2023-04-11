@@ -3,10 +3,12 @@ import React from 'react'
 import { general } from '../theme/customTheme'
 import { ColorsG } from '../../constants/Colors'
 import { Icon,  } from "react-native-elements";
+import { useNavigation } from "@react-navigation/native";
 
 
 const EmployedInfoScreen = ({ route })=>  {
     const { emp  } = route.params;
+    const navigation = useNavigation();
   return (
     <View style={general.container}>
       <Text style={{fontWeight: "bold", fontSize: 30, marginLeft: -5}}>{emp.user.name} {emp.user.paternal_surname}</Text> 
@@ -22,11 +24,14 @@ const EmployedInfoScreen = ({ route })=>  {
                 <Text style={{fontSize: 18, marginLeft: 5, marginTop: 4}}>{apcl.name}</Text>
                 <Text style={{fontSize: 18, marginLeft: 5, fontSize: 15,}}>{apcl.questionnaire.description}</Text>
                 <Text style={{fontSize: 18, marginLeft: 5, fontSize: 15, marginBottom: 4}}>
-                  {apcl.is_active === 1 ? "Activo" : " Inactivo"}
+                  Estatus: {apcl.is_active === 1 ? "Activo" : " Inactivo"}
                 </Text>
               </View>
               <View style={{height: 35, width: 35, justifyContent: "center", borderWidth: 1, borderRadius: 5, marginRight: 10,}}>
-                <TouchableOpacity style={{ flex: 1, backgroundColor: ColorsG.primary, justifyContent: "center"}}>
+                <TouchableOpacity 
+                style={{ flex: 1, backgroundColor: ColorsG.primary, justifyContent: "center"}}
+                onPress={()=>navigation.navigate("QuestionScreen")}
+                >
                   <Icon
                       size={18}
                       name="pencil"

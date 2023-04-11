@@ -4,11 +4,38 @@ import { Ionicons } from "@expo/vector-icons";
 import ModalSearch from "../Modal/ModalSearch";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-const SearchButton = () => {
+const SearchButton = ({ data, setData }) => {
   const [showModal, setShowModal] = useState(false);
+  const [empresa, setEmpresa] = useState("");
+  const [encuesta, setEncuesta] = useState("");
+  const [nombre, setNombre] = useState("");
 
   const handleToggleModal = () => {
     setShowModal(!showModal);
+  };
+
+  const handleFilterData = () => {
+    const filteredData = data.filter((item) => {
+      if (
+        item.participants.company.name.toLowerCase().includes(empresa.toLowerCase()) &&
+        item.encuesta.toLowerCase().includes(encuesta.toLowerCase()) &&
+        item.nombre.toLowerCase().includes(nombre.toLowerCase())
+      ) {
+        return true;
+      }
+      return false;
+    });
+    setData(filteredData);
+    //
+    //setShowModal(false);
+  };
+
+  const handleResetFilter = () => {
+    setData(data);
+    //setShowModal(false);
+    setEmpresa("");
+    setEncuesta("");
+    setNombre("");
   };
 
   return (
@@ -19,7 +46,19 @@ const SearchButton = () => {
           <FontAwesome5 name="filter" size={15} color="#fff" />
         </View>
       </TouchableOpacity>
-      {showModal && <ModalSearch onClose={handleToggleModal} />}
+      {showModal && (
+        <ModalSearch
+          empresa={empresa}
+          encuesta={encuesta}
+          nombre={nombre}
+          setEmpresa={setEmpresa}
+          setEncuesta={setEncuesta}
+          setNombre={setNombre}
+          onClose={handleToggleModal}
+          onFilter={handleFilterData}
+          onReset={handleResetFilter}
+        />
+      )}
     </View>
   );
 };
