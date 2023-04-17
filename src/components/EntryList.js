@@ -43,8 +43,7 @@ const EntryList = ({ data }) => {
     }
   };
 
- //const sortedData = resetData && data && Array.isArray(data) ? data.sort(sortData) : []; // agregamos ? para manejar el caso en el que data sea undefined
-
+  //const sortedData = resetData && data && Array.isArray(data) ? data.sort(sortData) : []; // agregamos ? para manejar el caso en el que data sea undefined
 
   const sortedData = data && Array.isArray(data) ? data.sort(sortData) : []; // agregamos ? para manejar el caso en el que data sea undefined
 
@@ -65,7 +64,6 @@ const EntryList = ({ data }) => {
                   variant="determinate"
                   style={{ height: 10, marginVertical: 10 }}
                   color="#012B54"
-                  //cuando te logeas
                 />
               </View>
             </View>
@@ -83,15 +81,13 @@ const EntryList = ({ data }) => {
             </View>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('QuestionScreen', e)
-                // if (e.percentage_completed >= 80) {
-                //   isVisibleModalAnswere();
-                // } else {
-                //   // console.log();
-                //   navigation.navigate("QuestionScreen", e);
-                // }
+                if (e.percentage_completed >= 80) {
+                  isVisibleModalAnswere();
+                } else {
+                  //   // console.log();
+                  navigation.navigate("QuestionScreen", e);
+                }
               }}
-              // onPress={() => navigation.navigate('QuestionScreen', e)}
               style={{ justifyContent: "center", marginLeft: 5 }}
             >
               <View style={{ width: "15%" }}>

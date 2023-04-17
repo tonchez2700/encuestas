@@ -18,8 +18,6 @@ import SearchButton from "../components/Forms/SearchButton";
 import EmploymentCard from "../components/Employment";
 import { employees } from "../components/Data/DataFormAdmin";
 
-// const windowrWidth = Dimensions.get('window').width;
-
 const QuestionAdminScreen = () => {
   const navigation = useNavigation();
   const { state, getUsersWhithApplications } = useContext(AccountDataContext);
@@ -31,8 +29,6 @@ const QuestionAdminScreen = () => {
     });
     return unsubscribe;
   }, [navigation]);
-  //console.log(JSON.stringify(getUsersWhithApplications, null, 2));
-
   
 
   const renderContent = () => {

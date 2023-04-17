@@ -60,11 +60,6 @@ const EmploymentCard = ({ employee }) => {
               Nombre: {emp.user.name} {emp.user.paternal_surname}
             </Text>
             <Text>Compañia: {emp.company.name}</Text> 
-            {/* {emp.applications.map((apcl)=>(
-              <Text>Encuesta: {apcl.name}</Text>
-            ))
-            } */}
-            
           </View>
           <View style={styles.textIn}>
             <Text>encuestas </Text>
@@ -79,26 +74,6 @@ const EmploymentCard = ({ employee }) => {
       ))}
     </ScrollView>
   );
-
-  {
-    /* {employee.map((em) => (
-        <View style={styles.container} key={em.id}>
-          <View style={{ margin: 20 }}>
-            <Text>{employee.name}</Text>
-          </View>
-
-          <View style={styles.textIn}>
-            <Text>{employee.numberSurveys} encuestas</Text>
-            <TouchableOpacity
-              style={styles.iconBox}
-              onPress={() => navigation.navigate("InFoEmployed", { employee })}
-            >
-              <AntDesign name="eye" size={25} color="#fff" />
-            </TouchableOpacity>
-          </View>
-        </View>
-      ))} */
-  }
 };
 
 export default EmploymentCard;

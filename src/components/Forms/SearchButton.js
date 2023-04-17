@@ -26,13 +26,10 @@ const SearchButton = ({ data, setData }) => {
       return false;
     });
     setData(filteredData);
-    //
-    //setShowModal(false);
   };
 
   const handleResetFilter = () => {
     setData(data);
-    //setShowModal(false);
     setEmpresa("");
     setEncuesta("");
     setNombre("");

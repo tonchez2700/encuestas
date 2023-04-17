@@ -116,7 +116,7 @@ const AccountDataReducer = (state = initialState, action) => {
         fetchingData: false,
         isVisibleAnswere: visibleCheckAnswer,
       };
-    // Maneja cualquier otro tipo de acción
+    
     default:
       return state;
   }
@@ -194,7 +194,7 @@ const getUsersWhithApplications = (dispatch) => {
       {
         Authorization: `Bearer ${token}`,
       });
-      //console.log(JSON.stringify(response, null, 2));
+
       dispatch({
         type: "SET_USER_DATA",
         payload: {
@@ -238,11 +238,6 @@ const store = (dispatch) => {
         question_id: question_id,
         option_id: option_id,
       };
-      // if (preguntas !== undefined) {
-      //   console.log(preguntas.name);
-      // } else {
-      //   console.log("preguntas no está definido");
-      // }
 
       const response = await httpClient.post(`users/6/answers`, data, {
         Authorization: `Bearer ${token}`,

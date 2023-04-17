@@ -54,9 +54,6 @@ const ModalSearch = ({ onSearch }) => {
         <TouchableOpacity style={styles.button} onPress={handleSearch}>
           <Text style={styles.buttonText}>Buscar</Text>
         </TouchableOpacity>
-        {/* <TouchableOpacity style={styles.button} onPress={onClose}>
-          <Text style={styles.buttonText}>Cerrar</Text>
-        </TouchableOpacity> */}
       </View>
     </View>
   );

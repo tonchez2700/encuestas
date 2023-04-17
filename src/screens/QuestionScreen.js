@@ -109,13 +109,7 @@ const QuestionScreen = ({ route }) => {
                                 buttonStyle={{ backgroundColor: '#012B54', borderRadius: 9, width: '80%' }}
                             />
                             </View>
-                            {/* <Button
-                                onPress={() => { isVisibleModal()}}
-                                titleStyle={{ fontSize: 17 }}
-                                title={'Regresar'}
-                                containerStyle={{ alignItems: 'center' }}
-                                buttonStyle={{ backgroundColor: 'gray', borderRadius: 9, width: '80%' }}
-                            /> */}
+                          
                             
                         </View>
                     </View>
