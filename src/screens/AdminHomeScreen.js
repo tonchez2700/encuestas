@@ -16,54 +16,19 @@ import moment from 'moment';
 
 const AdminHomeScreen = () => {
 
-
     const navigation = useNavigation();
     const { state,
-        setDataAccount,
+        getUserQuestionnaires
     } = useContext(AccountDataContext);
 
 
-    const data = [
-        {
-            id: 1,
-            name: 'Cuestionario NOM - 035 - STPS  F2018. Guia de referencia III',
-            cantidad: 43,
-            porcentaje: .2
-        },
-        {
-            id: 2,
-            name: 'Cuestionario para  identificar a los trabajadores sujetos a ATS',
-            cantidad: 32,
-            porcentaje: .4
-        },
-        {
-            id: 3,
-            name: 'Cuestionario para  identificar a los trabajadores sujetos a ATS',
-            cantidad: 73,
-            porcentaje: .5
-        },
-        {
-            id: 4,
-            name: 'Cuestionario para  identificar a los trabajadores sujetos a ATS',
-            cantidad: 93,
-            porcentaje: .6
-        },
-        {
-            id: 5,
-            name: 'Cuestionario para  identificar a los trabajadores sujetos a ATS',
-            cantidad: 73,
-            porcentaje: .9
-        },
-    ]
+
     const renderContent = () => {
 
         return (
             <View style={general.container}>
                 <Text style={general.Tittle}>Encuestas</Text>
-                <View style={{marginVertical: 63}}>
-                    <EntryList
-                        data={data} />
-                </View>
+               
             </View >
 
         );
@@ -84,7 +49,7 @@ const AdminHomeScreen = () => {
                         containerStyle={{ width: 120 }}
                         buttonStyle={[{ backgroundColor: '#118ea6' }]}
                         title="Actualizar"
-                        onPress={() => setDataAccount()}
+                        onPress={() => console.log('pato')}
                     />
                 </View>
             :

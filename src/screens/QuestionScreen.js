@@ -5,20 +5,17 @@ import {
 } from 'react-native';
 import { QuestionStyle, general } from '../theme/customTheme';
 import { Icon, Button, ButtonGroup, LinearProgress } from 'react-native-elements'
-
 import { useNavigation } from '@react-navigation/native';
 import ModalAlert from '../components/Modal/ModalAlert';
 import tw from 'tailwind-react-native-classnames'
 import ButtonGroupFrom from '../components/Forms/ButtonGroupFrom';
-
 import { Context as AccountDataContext } from '../context/AccountDataContext';
 import ModalBack from '../components/Modal/ModalBack';
 
 const windowWidth = Dimensions.get('window').width;
 
 const QuestionScreen = ({ route }) => {
-
- 
+    
     const navigation = useNavigation();
     const {
         state,
@@ -28,8 +25,6 @@ const QuestionScreen = ({ route }) => {
         store
     } = useContext(AccountDataContext);
     const { id, name, description, percentage_completed, total_questions, questionnaire } = route.params
-
-
     const [seccionIndex, setSeccionIndex] = useState(0);
     const [preguntaIndex, setPreguntaIndex] = useState(0);
     const secciones = questionnaire.sections[seccionIndex]
@@ -54,6 +49,12 @@ const QuestionScreen = ({ route }) => {
         }
         setCount(count + 1); 
     };
+
+    if (preguntas && preguntas.name) {
+        <Text>Error</Text>
+      } else {
+        <Text>Eror 2</Text>
+      }
     
     const renderContent = () => {
         return (
@@ -72,6 +73,7 @@ const QuestionScreen = ({ route }) => {
                     />
                     <View style={QuestionStyle.CardQuestHelp}>
                         <View style={{ width: '80%', flex: 1, padding: 10 }}>
+                            {/* eRROR aQUI Cada que se empieza una nueva encuesta */}
                             <Text style={{ fontSize: 18, fontWeight: '700', color: '#6C6767' }}>{preguntas.name}</Text>
                             <Text style={{ fontSize: 14.5, fontWeight: '400' }}>{preguntas?.description}</Text>
                         </View>
@@ -96,15 +98,9 @@ const QuestionScreen = ({ route }) => {
                     <View style={{ marginVertical: 20 }}>
 
 
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                            <Button
-                                onPress={() => { isVisibleModal()}}
-                                titleStyle={{ fontSize: 17 }}
-                                title={'Regresar'}
-                                containerStyle={{ alignItems: 'center' }}
-                                buttonStyle={{ backgroundColor: 'gray', borderRadius: 9, width: '80%' }}
-                            />
-                            <Button
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: "100%",}}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', width: "100%",}}>
+                                <Button
                                 onPress={() => { handleSiguientePregunta() 
                                     }}
                                 titleStyle={{ fontSize: 17 }}
@@ -112,6 +108,15 @@ const QuestionScreen = ({ route }) => {
                                 containerStyle={{ alignItems: 'center' }}
                                 buttonStyle={{ backgroundColor: '#012B54', borderRadius: 9, width: '80%' }}
                             />
+                            </View>
+                            {/* <Button
+                                onPress={() => { isVisibleModal()}}
+                                titleStyle={{ fontSize: 17 }}
+                                title={'Regresar'}
+                                containerStyle={{ alignItems: 'center' }}
+                                buttonStyle={{ backgroundColor: 'gray', borderRadius: 9, width: '80%' }}
+                            /> */}
+                            
                         </View>
                     </View>
                     

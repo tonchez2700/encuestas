@@ -15,13 +15,23 @@ import * as Progress from "react-native-progress";
 import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
 import ModalAnswered from "./Modal/ModalAnswered";
-import { Context as AccountDataContext } from '../context/AccountDataContext'
+import { Context as AccountDataContext } from "../context/AccountDataContext";
 
 const EntryList = ({ data }) => {
   const navigation = useNavigation();
   const { isVisibleModalAnswere } = useContext(AccountDataContext);
   //console.log(data);
   //console.log(JSON.stringify(data, null, 2));
+
+  const [resetData, setResetData] = useState(false);
+
+  useEffect(() => {
+    setResetData(false);
+  }, [resetData]);
+
+  const handleResetData = () => {
+    setResetData(true);
+  };
 
   const sortData = (a, b) => {
     if (a.percentage_completed >= 80 && b.percentage_completed < 80) {
@@ -33,7 +43,10 @@ const EntryList = ({ data }) => {
     }
   };
 
-  const sortedData = data && Array.isArray(data) ? data.sort(sortData) : [];// agregamos ? para manejar el caso en el que data sea undefined
+ //const sortedData = resetData && data && Array.isArray(data) ? data.sort(sortData) : []; // agregamos ? para manejar el caso en el que data sea undefined
+
+
+  const sortedData = data && Array.isArray(data) ? data.sort(sortData) : []; // agregamos ? para manejar el caso en el que data sea undefined
 
   return (
     <ScrollView>
@@ -45,7 +58,7 @@ const EntryList = ({ data }) => {
           <View style={general.CardQuiz}>
             <View style={{ width: "60%", justifyContent: "center" }}>
               <Text style={general.textCardQuiz}>{e.name}</Text>
-              
+
               <View style={{ marginVertical: 7 }}>
                 <LinearProgress
                   value={e.percentage_completed / 80}
@@ -70,15 +83,14 @@ const EntryList = ({ data }) => {
             </View>
             <TouchableOpacity
               onPress={() => {
-                 navigation.navigate('QuestionScreen', e)
-                //  if (e.percentage_completed >= 80) {
+                navigation.navigate('QuestionScreen', e)
+                // if (e.percentage_completed >= 80) {
                 //   isVisibleModalAnswere();
-                //  } else {
-                //    // console.log();
-                //    navigation.navigate("QuestionScreen", e);
+                // } else {
+                //   // console.log();
+                //   navigation.navigate("QuestionScreen", e);
                 // }
               }}
-              
               // onPress={() => navigation.navigate('QuestionScreen', e)}
               style={{ justifyContent: "center", marginLeft: 5 }}
             >
@@ -95,12 +107,10 @@ const EntryList = ({ data }) => {
           </View>
         </View>
       ))}
-      <ModalAnswered/>
+      <ModalAnswered />
     </ScrollView>
   );
 };
-
-
 
 export default EntryList;
 

@@ -5,6 +5,7 @@ import { navigationRef } from '../helpers/rootNavigation';
 import { Provider as AccountDataProvider } from '../context/AccountDataContext';
 import { Context as AuthContext } from '../context/AuthContext';
 import HomeScreen from './HomeScreen';
+import AdminHomeScreen from './AdminHomeScreen';
 import QuestionScreen from './QuestionScreen';
 import tw from 'tailwind-react-native-classnames';
 import Images from '@assets/images';
@@ -67,6 +68,7 @@ const navigation = useNavigation();
                     initialRouteName={`${state.intialScreen}`}
                     useLegacyImplementation>
                     <Drawer.Screen name="Inicio" component={HomeScreen} />
+                    <Drawer.Screen name="InicioAdmin" component={AdminHomeScreen} />
                     <Drawer.Screen name="QuestionScreen" component={QuestionScreen} />
                     <Drawer.Screen name="Admin" component={QuestionAdminScreen}/>
                     <Drawer.Screen name='InFoEmployed' component={EmployedInfoScreen}/>
