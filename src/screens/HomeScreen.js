@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import {
     StyleSheet, View, ScrollView, TouchableOpacity,
-    Text, ActivityIndicator, Animated
+    Text, ActivityIndicator, Animated, 
 } from 'react-native';
 import { general } from '../theme/customTheme';
 import { Icon, Button, Slider } from 'react-native-elements'
@@ -12,16 +12,20 @@ import tw from 'tailwind-react-native-classnames'
 import EntryList from '../components/EntryList';
 import moment from 'moment';
 import NoQuestion from '../components/NoQuestion';
+import { log } from 'react-native-reanimated';
 
 const HomeScreen = () => {
 
     const navigation = useNavigation();
-    const { state, getUserQuestionnaires, isVisibleModalAnswere} = useContext(AccountDataContext);
+    const { state, getUserQuestionnaires, clearState} = useContext(AccountDataContext);
     const [loading, setLoading] = useState(true);
     const [showNoQuestion, setShowNoQuestion] = useState(false);
+    const [seccionIndex, setSeccionIndex] = useState(0);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
+            //Cada que cambias de pantalla se corren estos metodos
+            clearState();
             getUserQuestionnaires();
             setLoading(true);
             setShowNoQuestion(false);

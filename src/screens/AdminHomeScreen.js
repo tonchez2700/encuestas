@@ -49,7 +49,7 @@ const AdminHomeScreen = () => {
                         containerStyle={{ width: 120 }}
                         buttonStyle={[{ backgroundColor: '#118ea6' }]}
                         title="Actualizar"
-                        onPress={() => console.log('pato')}
+                        //onPress={() => console.log('pato')}
                     />
                 </View>
             :

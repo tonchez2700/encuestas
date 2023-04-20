@@ -116,7 +116,11 @@ const AccountDataReducer = (state = initialState, action) => {
         fetchingData: false,
         isVisibleAnswere: visibleCheckAnswer,
       };
-    
+    case "SET_DATA_QUESTION": 
+      return{
+        ...state,
+        answerQuiz: ""
+      }    
     default:
       return state;
   }
@@ -242,9 +246,13 @@ const store = (dispatch) => {
       const response = await httpClient.post(`users/6/answers`, data, {
         Authorization: `Bearer ${token}`,
       });
-      console.log(JSON.stringify(response, null, 2));
+
+      dispatch({
+        type: "SET_DATA_QUESTION",
+      });
+      //console.log(JSON.stringify(response, null, 2));
     } catch (error) {
-      console.log(JSON.stringify(error, null, 2));
+      //console.log(JSON.stringify(error, null, 2));
       dispatch({
         type: "SET_REQUEST_ERROR",
         payload: {

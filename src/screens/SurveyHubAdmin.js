@@ -25,7 +25,7 @@ import ModalBack from "../components/Modal/ModalBack";
 
 const windowWidth = Dimensions.get("window").width;
 
-const QuestionScreen = ({ route }) => {
+const SurveyHubAdmin = () => {
   const navigation = useNavigation();
   const {
     state,
@@ -34,18 +34,18 @@ const QuestionScreen = ({ route }) => {
     isVisibleModalBack,
     store,
   } = useContext(AccountDataContext);
-  const {
-    id,
-    name,
-    description,
-    percentage_completed,
-    total_questions,
-    questionnaire,
-  } = route.params;
+//   const {
+//     id,
+//     name,
+//     description,
+//     percentage_completed,
+//     total_questions,
+//     questionnaire,
+//   } = route.params;
   const [seccionIndex, setSeccionIndex] = useState(0);
   const [preguntaIndex, setPreguntaIndex] = useState(0);
-  const secciones = questionnaire.sections[seccionIndex];
-  const preguntas = secciones.questions[preguntaIndex];
+ // const secciones = questionnaire.sections[seccionIndex];
+  //const preguntas = secciones.questions[preguntaIndex];
   const [count, setCount] = useState(1);
 
   const men = {
@@ -63,21 +63,21 @@ const QuestionScreen = ({ route }) => {
     });
     return unsubscribe;
 }, [navigation]);
+ 
 
-
-  const handleSiguientePregunta = () => {
-    if (preguntaIndex + 1 < secciones.questions.length) {
-      setPreguntaIndex(preguntaIndex + 1);
-      store(id, preguntas.id, state.answerQuiz);
-    } else if (seccionIndex + 1 < questionnaire.sections.length) {
-      store(id, preguntas.id, state.answerQuiz);
-      setSeccionIndex(seccionIndex + 1);
-      setPreguntaIndex(0);
-    } else {
-      isVisibleModalBack();
-    }
-    setCount(count + 1);
-  };
+//   const handleSiguientePregunta = () => {
+//     if (preguntaIndex + 1 < secciones.questions.length) {
+//       setPreguntaIndex(preguntaIndex + 1);
+//       store(id, preguntas.id, state.answerQuiz);
+//     } else if (seccionIndex + 1 < questionnaire.sections.length) {
+//       store(id, preguntas.id, state.answerQuiz);
+//       setSeccionIndex(seccionIndex + 1);
+//       setPreguntaIndex(0);
+//     } else {
+//       isVisibleModalBack();
+//     }
+//     setCount(count + 1);
+//   };
 
   const renderContent = () => {
     return (
@@ -87,15 +87,15 @@ const QuestionScreen = ({ route }) => {
             style={{ flexDirection: "column", justifyContent: "space-between" }}
           >
             <Text style={{ fontSize: 20, fontWeight: "700", color: "#6C6767" }}>
-              Sección "{secciones.name}"
+              Sección 1 
             </Text>
             {/* {preguntaIndex + 1}    {secciones.questions.length} */}
             <Text style={{ fontSize: 16, fontWeight: "700", color: "#6C6767" }}>
-              Pregunta {count} de {total_questions}
+              Pregunta 1 de 5
             </Text>
           </View>
           <LinearProgress
-            value={count / total_questions}
+            //value={count / total_questions}
             variant="determinate"
             style={{ height: 10, marginVertical: 10 }}
             color="#012B54"
@@ -106,11 +106,11 @@ const QuestionScreen = ({ route }) => {
               <Text
                 style={{ fontSize: 18, fontWeight: "700", color: "#6C6767" }}
               >
-                {/* //Se soliciono el error agregan */}
-                {preguntas?.name}
+                
+                Pregunta 1: Cuales son tus animales favoritos
               </Text>
               <Text style={{ fontSize: 14.5, fontWeight: "400" }}>
-                {preguntas?.description}
+                Descripcion de las preguntas 
               </Text>
             </View>
             <View style={{ width: "20%", borderColor: "#B7B7B7" }}>
@@ -127,7 +127,7 @@ const QuestionScreen = ({ route }) => {
               </TouchableOpacity>
             </View>
           </View>
-          {preguntas?.options && preguntas?.options !== "" ? (
+          {/* {preguntas?.options && preguntas?.options !== "" ? (
             <ButtonGroupFrom
               fun={(item) => {
                 handleInputChange(item, "answerQuiz");
@@ -136,7 +136,7 @@ const QuestionScreen = ({ route }) => {
             />
           ) : (
             <Text>No hay opciones disponibles</Text>
-          )}
+          )} */}
 
           <View style={{ marginVertical: 20 }}>
             <View
@@ -154,22 +154,17 @@ const QuestionScreen = ({ route }) => {
                 }}
               >
                 <Button
-                  onPress={() => {
-                    if (preguntas?.options == "") {
-                      handleSiguientePregunta();
-                    } else {
-                      if (state.answerQuiz == "") {
-                        Alert.alert("Error", "No has seleccionado la opcion")
-                      } else {
-                        handleSiguientePregunta();
-                      }
-                    }
-                    // if (state.answerQuiz == "") {
-                    //   Alert.alert("Error", "No has seleccionado la opcion")
-                    // } else {
-                    //   handleSiguientePregunta();
-                    // }
-                  }}
+                //   onPress={() => {
+                //     if (preguntas?.options == "") {
+                //       handleSiguientePregunta();
+                //     } else {
+                //       if (state.answerQuiz == "") {
+                //         Alert.alert("Error", "No has seleccionado la opcion")
+                //       } else {
+                //         handleSiguientePregunta();
+                //       }
+                //     }
+                //   }}
                   titleStyle={{ fontSize: 17 }}
                   title={"Siguiente"}
                   containerStyle={{ alignItems: "center" }}
@@ -184,11 +179,11 @@ const QuestionScreen = ({ route }) => {
           </View>
         </ScrollView>
         <ModalBack />
-        {secciones.messages != "" ? (
+        {/* {secciones.messages != "" ? (
           <ModalAlert messages={secciones.messages[0]} />
-        ) : (
+        ) : ( */}
           <ModalAlert messages={men} />
-        )}
+        {/* )} */}
       </View>
     );
   };
@@ -211,6 +206,6 @@ const QuestionScreen = ({ route }) => {
     <ActivityIndicator size="large" color="#118EA6" style={tw`mt-5`} />
   );
 };
-export default QuestionScreen;
+export default SurveyHubAdmin;
 
 const styles = StyleSheet.create({});

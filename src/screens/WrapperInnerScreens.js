@@ -14,6 +14,7 @@ import SimpleNavBar from '../components/SimpleNavBar'
 import QuestionAdminScreen from './QuestionAdminScreen';
 import { useNavigation } from '@react-navigation/native';
 import EmployedInfoScreen from './EmployedInfoScreen';
+import SurveyHubAdmin from './SurveyHubAdmin';
 
 
 const Drawer = createDrawerNavigator();
@@ -41,10 +42,10 @@ const navigation = useNavigation();
                             props.navigation.closeDrawer()
                         }}
                     />             
-                    <DrawerItem
+                    {/* <DrawerItem
                         label="AdminPrueba"
                         onPress={() => navigation.navigate('Admin')}
-                    />
+                    /> */}
                 </DrawerContentScrollView>
             </View>
         )
@@ -65,13 +66,14 @@ const navigation = useNavigation();
                         )
                     }}
                     drawerContent={(props) => <CustomDrawerContent {...props} />}
-                    initialRouteName={`${state.intialScreen}`}
+                    initialRouteName={`${state.route}`}
                     useLegacyImplementation>
                     <Drawer.Screen name="Inicio" component={HomeScreen} />
                     <Drawer.Screen name="InicioAdmin" component={AdminHomeScreen} />
                     <Drawer.Screen name="QuestionScreen" component={QuestionScreen} />
                     <Drawer.Screen name="Admin" component={QuestionAdminScreen}/>
                     <Drawer.Screen name='InFoEmployed' component={EmployedInfoScreen}/>
+                    <Drawer.Screen name='SurveryAdmin' component={SurveyHubAdmin} /> 
                 </Drawer.Navigator>
             </AccountDataProvider>
         </SafeAreaView>

@@ -26,7 +26,7 @@ const loginReducer = (state = initialState, action) => {
                 fetchingData: action.payload.fetchingData
             }
         case 'SIGNIN':
-            console.log("pato", action.payload.user.userData.role_id);
+            //console.log("pato", action.payload.user.userData.role_id);
             let routeNavigation
             if (action.payload.user.userData.role_id == 3 ) {
                 routeNavigation = 'Inicio'

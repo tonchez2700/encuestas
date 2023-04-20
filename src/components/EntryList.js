@@ -23,15 +23,7 @@ const EntryList = ({ data }) => {
   //console.log(data);
   //console.log(JSON.stringify(data, null, 2));
 
-  const [resetData, setResetData] = useState(false);
-
-  useEffect(() => {
-    setResetData(false);
-  }, [resetData]);
-
-  const handleResetData = () => {
-    setResetData(true);
-  };
+ 
 
   const sortData = (a, b) => {
     if (a.percentage_completed >= 80 && b.percentage_completed < 80) {
@@ -81,12 +73,13 @@ const EntryList = ({ data }) => {
             </View>
             <TouchableOpacity
               onPress={() => {
-                if (e.percentage_completed >= 80) {
-                  isVisibleModalAnswere();
-                } else {
-                  //   // console.log();
-                  navigation.navigate("QuestionScreen", e);
-                }
+                navigation.navigate("QuestionScreen", e);
+                // if (e.percentage_completed >= 80) {
+                //   isVisibleModalAnswere();
+                // } else {
+                //   //   // console.log();
+                //   navigation.navigate("QuestionScreen", e);
+                // }
               }}
               style={{ justifyContent: "center", marginLeft: 5 }}
             >

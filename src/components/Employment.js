@@ -17,7 +17,7 @@ const EmploymentCard = ({ employee }) => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
-  console.log(JSON.stringify(employee, null, 6));
+  //console.log(JSON.stringify(employee, null, 6));
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -40,7 +40,7 @@ const EmploymentCard = ({ employee }) => {
     <ScrollView>
       <View>
         <Text style={{ fontWeight: "bold", fontSize: 30, marginTop: 10 }}>
-          Hola {employee.name}
+          Hola {employee?.name}
         </Text>
         <Text
           style={{
@@ -57,9 +57,9 @@ const EmploymentCard = ({ employee }) => {
         <View key={emp.id} style={styles.container}>
           <View style={{ marginLeft: 5 }}>
              <Text>
-              Nombre: {emp.user.name} {emp.user.paternal_surname}
+              Nombre: {emp?.user.name} {emp?.user.paternal_surname}
             </Text>
-            <Text>Compañia: {emp.company.name}</Text> 
+            <Text>Compañia: {emp?.company.name}</Text> 
           </View>
           <View style={styles.textIn}>
             <Text>encuestas </Text>
